@@ -3,9 +3,9 @@
     <section class="intro">
       <h1>Welcome to my silly blogs!</h1>
     </section>
-    <section class="container mt-4">
-      <el-row :gutter="30">
-        <el-col :md="18">
+    <section class="md:container md:mx-auto">
+      <div class="grid md:grid-cols-3 gap-5">
+        <div class="col-span-3 md:col-span-2">
           <Post
             v-for="post in posts"
             :key="post.id"
@@ -15,26 +15,11 @@
             :content="post.content"
             :date="post.date"
           />
-        </el-col>
-        <el-col :md="6">
-          <div class="about-me">
-            <h2 class="block-title">About me</h2>
-            <div class="mt-2">
-              <img
-                src="https://images.unsplash.com/photo-1468818438311-4bab781ab9b8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80"
-                alt=""
-              />
-            </div>
-            <p>
-              Hi, I am just a silly girl writing silly blogs Lorem ipsum dolor
-              sit amet, consec tetur adipi sicing elit. Iure cum provi dent ab,
-              autem est ratione asper natur accusamus volup tatibus libero repu
-              diandae numquam, unde dolor emque inven tore officiis veri tatis
-              vero necessi tatibus beatae. Eveniet.
-            </p>
-          </div>
-        </el-col>
-      </el-row>
+        </div>
+        <div class="col-span-3 md:col-span-1 order-first md:order-last">
+          <AboutMe />
+        </div>
+      </div>
     </section>
   </div>
 </template>
@@ -83,12 +68,6 @@ export default {
   .intro h1 {
     font-size: 48px;
     line-height: 52px;
-  }
-  .about-me {
-    margin: 40px 0;
-  }
-  .about-me p {
-    padding: 0 20px;
   }
 }
 </style>

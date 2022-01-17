@@ -1,5 +1,5 @@
 <template>
-  <el-card :body-style="{ padding: '0px' }">
+  <div class="post-item shadow-lg rounded overflow-hidden mb-5 relative">
     <div class="post-thumbnail">
       <nuxt-link :to="`/blog/${id}`">
         <img :src="thumbnail" alt="" />
@@ -13,7 +13,13 @@
       <p class="posted-at">{{ date }}</p>
       <div class="text-center">
         <nuxt-link :to="`/blog/${id}`">
-          <el-button type="info" plain>Read more</el-button>
+          <CommonButton
+            bg="bg-gray-700"
+            text-color="text-slate-50"
+            hover="hover:bg-gray-500"
+          >
+            Read more
+          </CommonButton>
         </nuxt-link>
       </div>
     </div>
@@ -21,9 +27,9 @@
       <nuxt-link :to="`/blog/edit/${id}`">
         <i class="far fa-edit"></i>
       </nuxt-link>
-      <i class="far fa-trash-alt"></i>
+      <i class="far fa-trash-alt" @click="handleDeletePost(id)"></i>
     </div>
-  </el-card>
+  </div>
 </template>
 
 <script>
@@ -31,16 +37,30 @@ export default {
   props: ["id", "thumbnail", "title", "content", "date"],
   computed: {
     editMode() {
-      return this.$store.state.editMode
+      return this.$store.state.editMode;
+    },
+  },
+  methods: {
+    handleDeletePost(id) {
+      alert("Are you sure you want to delete this post?")
+      this.$store.dispatch("deletePost", id)
     }
   }
 };
+
 </script>
 
 <style scoped>
-.el-card {
-  margin-bottom: 20px;
-  position: relative;
+.post-item:hover{
+  animation: move 0.3s ease;
+}
+@keyframes move {
+  from {
+    transform:translate(-1px, -1px)
+  }
+  to {
+    transform:translate(1px, 1px)
+  }
 }
 .post-admin {
   cursor: pointer;
@@ -78,7 +98,7 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* number of lines to show */
+  -webkit-line-clamp: 3;
   line-clamp: 3;
   -webkit-box-orient: vertical;
 }

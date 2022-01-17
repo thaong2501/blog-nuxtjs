@@ -1,5 +1,3 @@
-import axios from "axios";
-
 export const state = () => {
   return {
     editMode: null,
@@ -23,17 +21,21 @@ export const mutations = {
     );
     state.posts[postIndex] = editedPost;
   },
+  DELETE_POST(state, deletedPostId) {
+    const postIndex = state.posts.findIndex(
+      (post) => post.id === deletedPostId
+    );
+    state.posts.splice(postIndex, 1);
+  },
 };
 
 export const actions = {
   async nuxtServerInit(vuexContext, context) {
     try {
-      const response = await axios.get(
-        "https://blog-nuxtjs-3691a-default-rtdb.firebaseio.com/posts.json"
-      );
+      const response = await context.app.$axios.$get("/posts.json");
       const postArray = [];
-      for (const key in response.data) {
-        postArray.push({ ...response.data[key], id: key });
+      for (const key in response) {
+        postArray.push({ ...response[key], id: key });
       }
       vuexContext.commit("SET_POSTS", postArray);
     } catch (err) {
@@ -49,27 +51,29 @@ export const actions = {
       date: new Date().toLocaleDateString("en-US"),
     };
     try {
-      const response = await axios.post(
-        "https://blog-nuxtjs-3691a-default-rtdb.firebaseio.com/posts.json",
-        newPost
-      );
-      commit("ADD_POST", { ...newPost, id: response.data.name });
+      const response = await this.$axios.$post("/posts.json", newPost);
+      commit("ADD_POST", { ...newPost, id: response.name });
     } catch (error) {
       return console.log(error);
     }
   },
   async editPost({ commit }, editPost) {
     try {
-      await axios
-        .put(
-          "https://blog-nuxtjs-3691a-default-rtdb.firebaseio.com/posts/" +
-          editPost.id +
-          ".json",
-          { ...editPost, date: new Date().toLocaleDateString("en-US") }
-        );
+      await this.$axios.$put("/posts/" + editPost.id + ".json", {
+        ...editPost,
+        date: new Date().toLocaleDateString("en-US"),
+      });
       commit("EDIT_POST", editPost);
     } catch (error) {
       return console.log(error);
+    }
+  },
+  async deletePost({ commit }, deletedPostId) {
+    try {
+      await this.$axios.$delete("/posts/" + deletedPostId + ".json");
+      commit("DELETE_POST", deletedPostId);
+    } catch (e) {
+      return console.error(e);
     }
   },
 };

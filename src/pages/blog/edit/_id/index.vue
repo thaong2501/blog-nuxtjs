@@ -1,6 +1,6 @@
 <template>
   <div class="mt">
-    <div class="container my-4 pt-4">
+    <div class="container mx-auto pt-12 px-5">
       <h2 class="block-title">Edit Post</h2>
       <PostForm
         :inputTitle="post.title"

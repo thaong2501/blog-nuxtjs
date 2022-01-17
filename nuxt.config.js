@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Blog',
+    title: 'joonthego',
     htmlAttrs: {
       lang: 'en'
     },
@@ -26,29 +26,42 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    'element-ui/lib/theme-chalk/index.css',
     '~assets/css/main.css'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-    '@/plugins/element-ui'
-  ],
+  plugins: [],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
+    '@nuxt/postcss8',
+    '@nuxtjs/tailwindcss',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/axios',
   ],
+  axios: {
+    baseURL: process.env.BASE_API || "https://blog-nuxtjs-3691a-default-rtdb.firebaseio.com"
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    transpile: [/^element-ui/],
+    postcss: {
+      plugins: {
+        tailwindcss: {},
+        autoprefixer: {},
+      },
+    },
   },
   mode: 'universal',
+  srcDir: 'src',
+  loading: {color: "#059669"},
+  env: {
+    baseURL: process.env.BASE_API || "https://blog-nuxtjs-3691a-default-rtdb.firebaseio.com"
+  }
 }

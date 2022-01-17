@@ -1,13 +1,13 @@
 <template>
   <div class="mt">
-    <div class="container my-4 pt-4">
-      <h1>Blogs</h1>
+    <div class="container mx-auto pt-12">
+      <h1 class="block-title">Blogs</h1>
       <div class="toggle-edit">
         <span>Toggle Editing Mode</span>
         <input type="checkbox" v-model="editMode" />
       </div>
-      <el-row :gutter="20">
-        <el-col :lg="8" :md="12" :sm="24" v-for="post in posts" :key="post.id">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="col-span-1 md:col-span-1 lg:col-span-1" v-for="post in posts" :key="post.id">
           <Post
             :key="post.id"
             :id="post.id"
@@ -16,14 +16,17 @@
             :content="post.content"
             :date="post.date"
           />
-        </el-col>
-      </el-row>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  head: {
+    title: "Blog"
+  },
   computed: {
     editMode: {
       get() {
@@ -44,12 +47,6 @@ export default {
 </script>
 
 <style scoped>
-h1 {
-  text-align: center;
-  margin-bottom: 40px;
-  font-size: 36px;
-  font-weight: 600;
-}
 .toggle-edit {
   text-align: right;
   margin-bottom: 20px;

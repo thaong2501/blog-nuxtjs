@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <div class="container">
+    <div class="container mx-auto">
       <h2>My silly blogs</h2>
       <a href="https://www.facebook.com/" target="blank"><i class="fab fa-facebook"></i></a>
       <a href="https://www.instagram.com/" target="blank"><i class="fab fa-instagram"></i></a>

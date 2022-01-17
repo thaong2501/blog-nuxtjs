@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --header-height: 71px;
+}
+
+.mt {
+  margin-top: var(--header-height);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  font-family: Montserrat, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  color: #333;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+section {
+  margin-bottom: 50px;
+}
+
+.block-title {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 32px;
+  font-weight: 500;
+}
