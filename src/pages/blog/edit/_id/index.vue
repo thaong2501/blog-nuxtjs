@@ -1,7 +1,7 @@
 <template>
   <div class="mt">
     <div class="container mx-auto pt-12 px-5">
-      <h2 class="block-title">Edit Post</h2>
+      <h2 class="block-title">Edit Blog</h2>
       <PostForm
         :inputTitle="post.title"
         :inputThumbnail="post.thumbnail"

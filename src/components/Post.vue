@@ -1,18 +1,18 @@
 <template>
   <div class="post-item shadow-lg rounded overflow-hidden mb-5 relative">
     <div class="post-thumbnail">
-      <nuxt-link :to="`/blog/${id}`">
-        <img :src="thumbnail" alt="" />
+      <nuxt-link :to="`/blog/${post.id}`">
+        <img :src="post.thumbnail" alt="" />
       </nuxt-link>
     </div>
     <div class="post-info">
-      <nuxt-link :to="`/blog/${id}`">
-        <h2 class="post-title">{{ title }}</h2>
+      <nuxt-link :to="`/blog/${post.id}`">
+        <h2 class="post-title">{{ post.title }}</h2>
       </nuxt-link>
-      <p class="post-preview">{{ content }}</p>
-      <p class="posted-at">{{ date }}</p>
+      <p class="post-preview">{{ post.content }}</p>
+      <p class="posted-at">{{ post.date }}</p>
       <div class="text-center">
-        <nuxt-link :to="`/blog/${id}`">
+        <nuxt-link :to="`/blog/${post.id}`">
           <CommonButton
             bg="bg-gray-700"
             text-color="text-slate-50"
@@ -24,17 +24,17 @@
       </div>
     </div>
     <div class="post-admin" v-if="editMode">
-      <nuxt-link :to="`/blog/edit/${id}`">
+      <nuxt-link :to="`/blog/edit/${post.id}`">
         <i class="far fa-edit"></i>
       </nuxt-link>
-      <i class="far fa-trash-alt" @click="handleDeletePost(id)"></i>
+      <i class="far fa-trash-alt" @click="handleDeletePost(post.id)"></i>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["id", "thumbnail", "title", "content", "date"],
+  props: ["post"],
   computed: {
     editMode() {
       return this.$store.state.editMode;
@@ -42,8 +42,9 @@ export default {
   },
   methods: {
     handleDeletePost(id) {
-      alert("Are you sure you want to delete this post?")
-      this.$store.dispatch("deletePost", id)
+      if(confirm("Are you sure you want to delete this post?")) {
+        this.$store.dispatch("deletePost", id)
+      }
     }
   }
 };

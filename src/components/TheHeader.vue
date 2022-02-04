@@ -20,22 +20,32 @@
           @click="isMenuOpen = false"
         ></i>
         <ul
-          class="menu md:flex md:items-center md:justify-center md:gap-6 grow" @click="isMenuOpen = false"
+          class="menu md:flex md:items-center md:justify-center md:gap-6 grow"
+          @click="isMenuOpen = false"
         >
           <li>
-            <nuxt-link to="/" class="hover:font-semibold inline-block w-full">HOME</nuxt-link>
+            <nuxt-link to="/" class="hover:font-semibold inline-block w-full"
+              >HOME</nuxt-link
+            >
           </li>
           <li>
-            <nuxt-link to="/blog" class="hover:font-semibold inline-block w-full">BLOG</nuxt-link>
+            <nuxt-link
+              to="/blog"
+              class="hover:font-semibold inline-block w-full"
+              >BLOG</nuxt-link
+            >
           </li>
           <li>
-            <nuxt-link to="/create-post" class="hover:font-semibold inline-block w-full"
-              >CREATE POST</nuxt-link
+            <nuxt-link
+              v-if="isLogin"
+              to="/create-blog"
+              class="hover:font-semibold inline-block w-full"
+              >CREATE BLOG</nuxt-link
             >
           </li>
         </ul>
-        <div class="header-action md:block"  @click="isMenuOpen = false">
-          <nuxt-link to="/register">
+        <div class="header-action md:block" @click="isMenuOpen = false">
+          <!-- <nuxt-link to="/auth/register">
             <CommonButton
               bg="bg-emerald-600"
               text-color="text-slate-50"
@@ -43,21 +53,22 @@
             >
               SIGN IN
             </CommonButton>
-          </nuxt-link>
-          <nuxt-link to="/login">
+          </nuxt-link> -->
+          <nuxt-link v-if="!isLogin" to="/auth/login">
             <CommonButton
-              bg="bg-neutral-400"
+              bg="bg-emerald-600"
               text-color="text-slate-50"
               hover="hover:opacity-90"
             >
               LOG IN
             </CommonButton>
           </nuxt-link>
-          <nuxt-link to="/">
+          <nuxt-link v-else to="/">
             <CommonButton
               bg="bg-neutral-400"
               text-color="text-slate-50"
               hover="hover:opacity-90"
+              @onclick="logout"
             >
               LOG OUT
             </CommonButton>
@@ -79,7 +90,17 @@ export default {
       isMenuOpen: false,
     };
   },
-  methods: {},
+  computed: {
+    isLogin() {
+      return this.$store.getters.isAuthenticated;
+    },
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
+      this.$router.push("/blog")
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

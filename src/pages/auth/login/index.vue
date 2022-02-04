@@ -1,13 +1,13 @@
 <template>
   <div class="login-page">
     <div class="login-container">
-      <p class="text-center mb-5">
-        You've already have an account?
-        <nuxt-link to="/login" class="text-emerald-700 font-medium"
-          >Log in</nuxt-link
+      <!-- <p class="text-center mb-5">
+        Don't have an account?
+        <nuxt-link to="register" class="text-emerald-700 font-medium"
+          >Register</nuxt-link
         >
-      </p>
-      <h2 class="block-title">Sign In</h2>
+      </p> -->
+      <h2 class="block-title">Login</h2>
       <div>
         <CommonInput controlType="input" type="mail" v-model="formData.email"
           >Email</CommonInput
@@ -18,19 +18,14 @@
           v-model="formData.password"
           >Password</CommonInput
         >
-        <CommonInput
-          controlType="input"
-          type="password"
-          v-model="formData.password"
-          >Confirm Password</CommonInput
-        >
       </div>
       <div class="w-100 text-center my-4">
         <CommonButton
+          @onclick="login"
           bg="bg-emerald-600"
           text-color="text-slate-50"
           hover="hover:opacity-90"
-          >Sign In</CommonButton
+          >Login</CommonButton
         >
       </div>
       <div class="w-100 text-center">
@@ -50,10 +45,22 @@ export default {
   data() {
     return {
       formData: {
-        email: "",
-        password: "",
+        email: "thaocute@gmail.com",
+        password: "123456",
       },
     };
+  },
+  methods: {
+    login() {
+      this.$store
+        .dispatch("authenticateUser", {
+          email: this.formData.email,
+          password: this.formData.password,
+        })
+        .then(() => {
+          this.$router.push("/");
+        });
+    },
   },
 };
 </script>

@@ -9,11 +9,7 @@
           <Post
             v-for="post in posts"
             :key="post.id"
-            :id="post.id"
-            :thumbnail="post.thumbnail"
-            :title="post.title"
-            :content="post.content"
-            :date="post.date"
+            :post="post"
           />
         </div>
         <div class="col-span-3 md:col-span-1 order-first md:order-last">

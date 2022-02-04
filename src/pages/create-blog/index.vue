@@ -1,8 +1,8 @@
 <template>
   <div class="mt">
     <div class="container mx-auto pt-12 px-5">
-      <h2 class="block-title">Create a new Post</h2>
-      <PostForm @onsubmit="addNewPost">Create</PostForm>
+      <h2 class="block-title">Create a new BLog</h2>
+      <PostForm @onsubmit="addNewBlog">Create</PostForm>
     </div>
   </div>
 </template>
@@ -11,10 +11,10 @@
 import axios from "axios";
 export default {
   head: {
-    title: "Create Post"
+    title: "Create BLog",
   },
   methods: {
-    addNewPost(postData) {
+    addNewBlog(postData) {
       this.$store.dispatch("addPost", postData).then(() => {
         this.$router.push("/blog");
       });

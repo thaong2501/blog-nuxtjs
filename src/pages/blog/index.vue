@@ -2,7 +2,7 @@
   <div class="mt">
     <div class="container mx-auto pt-12">
       <h1 class="block-title">Blogs</h1>
-      <div class="toggle-edit">
+      <div v-if="isLogin" class="toggle-edit">
         <span>Toggle Editing Mode</span>
         <input type="checkbox" v-model="editMode" />
       </div>
@@ -11,10 +11,7 @@
           <Post
             :key="post.id"
             :id="post.id"
-            :thumbnail="post.thumbnail"
-            :title="post.title"
-            :content="post.content"
-            :date="post.date"
+            :post="post"
           />
         </div>
       </div>
@@ -28,6 +25,9 @@ export default {
     title: "Blog"
   },
   computed: {
+    isLogin() {
+      return this.$store.getters.isAuthenticated
+    },
     editMode: {
       get() {
         return this.$store.state.editMode;
